@@ -4,8 +4,8 @@ import { fromJS } from 'immutable';
 import { USER_DISPLAY_WEBAPI } from '../constants/webapi';
 import { USER_SELECT_WEBAPI_PATH } from '../constants/selection';
 import { userDisplayedWebApi } from '../actions/webapi';
-import { webApiPathSelect } from '../actions/selection';
-import { fetchData } from '../helpers/fetch';
+import { webApiPathSelect, webApiPathNotFound } from '../actions/selection';
+import { fetchData, isErrorResponse } from '../helpers/fetch';
 
 export default function* webapiSideEffects() {
 	return yield [
@@ -21,9 +21,13 @@ export function *handleSelectWebApiPath({ payload }) {
 	}
 
 	let response = yield fetchData(`/api${path}`, 'GET');
-	let responsePayload = yield response.json();
-	let details = responsePayload.details;
-	let definitions = responsePayload.definitions;
+	if (isErrorResponse(response)) {
+		yield put(webApiPathNotFound({ path }));
+	} else {
+		let responsePayload = yield response.json();
+		let details = responsePayload.details;
+		let definitions = responsePayload.definitions;
 
-	yield put(webApiPathSelect({ path, details, definitions }));
+		yield put(webApiPathSelect({ path, details, definitions }));
+	}
 }
