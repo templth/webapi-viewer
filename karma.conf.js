@@ -10,7 +10,7 @@ module.exports = function (config) {
 		files: [
 			'node_modules/babel-polyfill/browser.js',
 			//'./node_modules/phantomjs-polyfill/bind-polyfill.js',
-			{ pattern: 'tests/**/*-test.js', included: true }
+			{ pattern: 'tests/!(server)/**/*-test.js', included: true }
 		],
 		preprocessors: {
 			'tests/**/*-test.js': [ 'webpack', 'sourcemap' ],

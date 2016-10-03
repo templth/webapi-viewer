@@ -12,6 +12,6 @@ router.get('*', (req, res, next) => {
 	if (details) {
 		res.json({ details, definitions });
 	} else {
-		res.send(404);
+		res.sendStatus(404);
 	}
 });

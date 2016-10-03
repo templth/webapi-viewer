@@ -21,8 +21,6 @@ export default (req, res) => {
 	}, applyMiddleware(sagaMiddleware));
 	let fetchData = sagaMiddleware.run(sideEffects);
 	match({routes: routes(action => store.dispatch(action)), location: req.url}, (error, redirectLocation, renderProps) => {
-		console.log('#######');
-		console.log(renderProps);
 		if (error) {
 			store.dispatch(END);
 			res.status(500).send(error.message);
