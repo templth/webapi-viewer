@@ -1,0 +1,58 @@
+h1 {
+	margin-bottom: 25px;
+}
+
+.panel-heading {
+	h2.method {
+		font-size: 1.2em;
+		text-transform: uppercase;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-weight: bold;
+	}
+
+	.description {
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    line-height: normal;
+	    width: 75%;
+	    padding-top: 8px;
+	}
+}
+
+.panel-body {
+	h3 {
+		margin-top: 10px;
+		font-size: 1.1em;
+		font-weight: bold;
+	}
+
+	.responses, .parameters {
+		.code, .name {
+			font-weight: bold;
+		}
+
+		.description {
+			padding-left: 10px;
+		}
+
+		ol.properties {
+			padding-left: 15px;
+			list-style-type: none;
+
+			.type, .cardinality {
+				padding-left: 10px;
+				font-style: italic;
+			}
+		}
+	}
+}
+
+.media-type {
+	margin: 0 2px;
+}
+
+.arrow {
+	font-size: 1.1em;
+}

@@ -1,0 +1,17 @@
+ol.paths {
+	list-style-type: none;
+	-webkit-columns: 3 200px;
+	-moz-columns: 3 200px;
+	columns: 3 200px;
+	-webkit-column-gap: 4em;
+	-moz-column-gap: 4em;
+	column-gap: 4em;
+
+	li.selected {
+		list-style-type: square;
+
+		a {
+			color: #3c763d;
+		}
+	}
+}
