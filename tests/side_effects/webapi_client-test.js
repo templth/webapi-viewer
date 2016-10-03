@@ -3,16 +3,20 @@ import { executeGenerator } from '../helper';
 
 describe('side-effects', () => {
 	describe('webapi', () => {
-		function getMockedWebApiSideEffect(ret) {
+		function getMockedWebApiSideEffect(status, ret) {
 			let servicesInjector = require('inject!../../src/side_effects/webapi');
 			return servicesInjector({
 				'../helpers/fetch': {
 					fetchData: (path, method) => {
 						return {
+							status,
 							json: () => {
 								return ret;
 							}
 						}
+					},
+					isErrorResponse: (response) => {
+						return (response.status >= 400);
 					}
 				}
 			});
@@ -28,7 +32,7 @@ describe('side-effects', () => {
 				}
 			};
 
-			let webapi = getMockedWebApiSideEffect(returnedSelectedPathDetails);
+			let webapi = getMockedWebApiSideEffect(200, returnedSelectedPathDetails);
 			let generator = webapi.handleSelectWebApiPath({ payload: {
 				path: [ 'pet', '{id}' ]
 			} });
@@ -67,6 +71,29 @@ describe('side-effects', () => {
 
 			let dispatches = ret.dispatches;
 			expect(dispatches).to.have.length(0);
+		});
+
+		it('should dispatch not found if the resource don\'t exist', () => {
+			let returnedSelectedPathDetails = {
+				details: {
+
+				},
+				definitions: {
+
+				}
+			};
+
+			let webapi = getMockedWebApiSideEffect(404, returnedSelectedPathDetails);
+			let generator = webapi.handleSelectWebApiPath({ payload: {
+				path: [ 'pet1', '{id}' ]
+			} });
+
+			let ret = executeGenerator(generator);
+
+			let dispatches = ret.dispatches;
+			expect(dispatches).to.have.length(1);
+			let dispatch1 = dispatches[0];
+			expect(dispatch1.type).to.equal('WEBAPI_PATH_NOT_FOUND');
 		});
 	});
 });
