@@ -12,10 +12,10 @@ class Layout extends Component {
 	render() {
 		return (
 			<div>
-				<Header info={ this.props.info } />
+				<Header details={ this.props.info } />
 				<div className={ 'container' }>
       				<div className={ 'row' }>
-      					<Description description={ this.props.info.description } />
+      					<Description details={ this.props.info } />
 						<PathsBar paths={ this.props.paths } />
       					{ this.props.children }
       				</div>

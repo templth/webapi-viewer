@@ -1,9 +1,11 @@
 import swaggerParser from 'swagger-parser';
 
+//const WEBAPI_SWAGGER_FILE = 'swagger.json';
+const WEBAPI_SWAGGER_FILE = 'api_swagger2.json';
 let webApi = null;
 
 export function loadWebApi() {
-	swaggerParser.parse(__dirname + '/data/swagger.json').then(api => {
+	swaggerParser.parse(__dirname + `/data/${WEBAPI_SWAGGER_FILE}`).then(api => {
     	webApi = api;
   	}).catch(err => {
   		console.log(err);
@@ -11,7 +13,12 @@ export function loadWebApi() {
 }
 
 export function getWebApiInfo() {
-	return webApi.info;
+	return {
+		swagger: webApi.swagger,
+		info: webApi.info,
+		host: webApi.host,
+		basePath: webApi.basePath
+	};
 }
 
 export function getWebApiPaths() {
@@ -19,7 +26,12 @@ export function getWebApiPaths() {
 }
 
 export function getWebApiResource(path) {
-	return webApi.paths[path];
+	let resource = webApi.paths[path];
+	if (!resource) {
+		// Handle trailing character
+		resource = webApi.paths[path + '/'];
+	}
+	return resource;
 }
 
 export function getDefinitions(path) {

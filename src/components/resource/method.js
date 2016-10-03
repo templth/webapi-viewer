@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Parameter from './parameter';
 import Response from './response';
+import MediaTypes from './mediatypes';
+import Security from './security';
 
 if (process.env.BROWSER) require('../../styles/path-details.scss');
 
@@ -66,38 +68,20 @@ export default class MethodDetailsPage extends Component {
 							</div>
 							<div className="media-types">
 								<h3 className="text-muted">Media types</h3>
+								<MediaTypes label="in" mediaTypes={ this.props.details.consumes } />
+								<MediaTypes label="out" mediaTypes={ this.props.details.produces } />
+							</div>
+							<div className="securities">
+								<h3 className="text-muted">Security</h3>
+								<div>
 								{
-									this._hasConsumes() ? (
-										<div className="in row">
-											<div className="col-xs-2 col-sm-2">
-												<span className="label label-success">in</span>
-											</div>
-											<div>
-											{
-												this.props.details.consumes.map(mediaType => (
-													<span className="media-type label label-info" key={ mediaType }>{ mediaType }</span>
-												))
-											}
-											</div>
-										</div>
+									this.props.details.security ? (
+										this.props.details.security.map(security => (
+											<Security key={ security } security={ security } />
+										))
 									) : null
 								}
-								{
-									this._hasProduces() ? (
-										<div className="out row">
-											<div className="col-xs-2 col-sm-2">
-												<span className="label label-warning">out</span>
-											</div>
-											<div>
-											{
-												this.props.details.produces.map(mediaType => (
-													<span className="media-type label label-info" key={ mediaType }>{ mediaType }</span>
-												))
-											}
-											</div>
-										</div>
-									) : null
-								}
+								</div>
 							</div>
 						</div>
 					) : null

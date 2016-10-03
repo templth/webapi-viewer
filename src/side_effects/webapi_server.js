@@ -21,7 +21,7 @@ function *handleDisplayWebApi() {
 }
 
 function *handleSelectWebApiPath({ payload }) {
-	let path = '/' + payload.path.join('/');
+	let path = payload.path;
 	let details = getWebApiResource(path);
 	let definitions = getDefinitions();
 	yield put(webApiPathSelect({ path, details, definitions }));
