@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { USER_DISPLAY_WEBAPI } from '../constants/webapi';
 import { USER_SELECT_WEBAPI_PATH } from '../constants/selection';
 import { userDisplayedWebApi } from '../actions/webapi';
-import { webApiPathSelect } from '../actions/selection';
+import { webApiPathSelect, webApiPathNotFound } from '../actions/selection';
 import { getWebApiInfo, getWebApiPaths, getWebApiResource, getDefinitions } from '../server/webapi_service';
 
 export default function* webapiSideEffects() {
@@ -21,8 +21,12 @@ function *handleDisplayWebApi() {
 }
 
 function *handleSelectWebApiPath({ payload }) {
-	let path = payload.path;
+	let path = '/' + payload.path.join('/');
 	let details = getWebApiResource(path);
-	let definitions = getDefinitions();
-	yield put(webApiPathSelect({ path, details, definitions }));
+	if (details) {
+		let definitions = getDefinitions();
+		yield put(webApiPathSelect({ path, details, definitions }));
+	} else {
+		yield put(webApiPathNotFound({ path }));
+	}
 }

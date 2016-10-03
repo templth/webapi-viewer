@@ -11,6 +11,7 @@ import defineRoutes from '../routes';
 import reducers from '../reducers';
 import createSagaMiddleware, { END } from 'redux-saga';
 import sideEffects from '../side_effects/server';
+import { hasWebApiResource } from '../server/webapi_service';
 
 const routes = defineRoutes();
 const templates = dot.process({ path: path.resolve(__dirname, './views')});
@@ -36,11 +37,15 @@ export default (req, res) => {
 					);
 				const storeState = store.getState();
 				const initialState = JSON.stringify(storeState);
-				res.status(200).send(templates.main({
-					appString,
-					initialState,
-					assets
-				}));
+				if (storeState.selection.notFound) {
+					res.status(404).send('Not found');
+				} else {
+					res.status(200).send(templates.main({
+						appString,
+						initialState,
+						assets
+					}));
+				}
 			}).catch( e => {
 				console.warn(e.stack);
 				res.status(500).send('Something went wrong');
