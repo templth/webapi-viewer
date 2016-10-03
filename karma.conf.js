@@ -4,8 +4,8 @@ var webpackConfig = require('./webpack/client.js');
 
 module.exports = function (config) {
 	config.set({
-		browsers: [ /*'PhantomJS', */'Chrome'/*, 'Firefox'*/ ],
-		//singleRun: true,
+		browsers: [ 'PhantomJS', 'Chrome', 'Firefox' ],
+		singleRun: true,
 		frameworks: [ 'mocha' ],
 		files: [
 			'node_modules/babel-polyfill/browser.js',
