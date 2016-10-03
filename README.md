@@ -27,8 +27,16 @@ $ npm run dev-server
 
 ## Testing
 
-To run tests, execute the following command:
+To run tests, execute the following commands:
+
+* client side with Karma (Chrome, Firefox and PhantomJS)
 
 ```
 $ npm test
+```
+
+* server side
+
+```
+$ npm test-server
 ```
