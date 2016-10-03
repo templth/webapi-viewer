@@ -1,7 +1,7 @@
 import swaggerParser from 'swagger-parser';
 
-//const WEBAPI_SWAGGER_FILE = 'swagger.json';
-const WEBAPI_SWAGGER_FILE = 'api_swagger2.json';
+const WEBAPI_SWAGGER_FILE = 'swagger.json';
+//const WEBAPI_SWAGGER_FILE = 'api_swagger2.json';
 let webApi = null;
 
 export function loadWebApi() {
