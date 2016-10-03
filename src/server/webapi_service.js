@@ -34,6 +34,10 @@ export function getWebApiResource(path) {
 	return resource;
 }
 
+export function hasWebApiResource(path) {
+	return (getWebApiResource(path) != null);
+}
+
 export function getDefinitions(path) {
 	return webApi.definitions;
 }

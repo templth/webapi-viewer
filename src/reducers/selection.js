@@ -1,5 +1,6 @@
 import {
-	WEBAPI_PATH_SELECTED
+	WEBAPI_PATH_SELECTED,
+	WEBAPI_PATH_NOT_FOUND
 } from '../constants/selection';
 
 export default function selectionReducer(state = {}, action) {
@@ -10,6 +11,11 @@ export default function selectionReducer(state = {}, action) {
 				path: action.payload.path,
 				details: action.payload.details,
 				definitions: action.payload.definitions
+			};
+		case WEBAPI_PATH_NOT_FOUND:
+			return {
+				...state,
+				notFound: true
 			};
 		default:
 			return state;
