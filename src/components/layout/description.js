@@ -13,6 +13,13 @@ export default class Description extends Component {
 						) : null
 					}
 					{
+						this.props.details.info.version ? (
+							<div>
+								<strong>Version</strong> { this.props.details.info.version }
+							</div>
+						) : null
+					}
+					{
 						this.props.details.host ? (
 							<div>
 								<strong>Available at</strong> { this.props.details.host }{ this.props.details.basePath }
