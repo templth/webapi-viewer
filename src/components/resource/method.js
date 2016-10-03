@@ -71,18 +71,22 @@ export default class MethodDetailsPage extends Component {
 								<MediaTypes label="in" mediaTypes={ this.props.details.consumes } />
 								<MediaTypes label="out" mediaTypes={ this.props.details.produces } />
 							</div>
-							<div className="securities">
-								<h3 className="text-muted">Security</h3>
-								<div>
-								{
-									this.props.details.security ? (
-										this.props.details.security.map(security => (
-											<Security key={ security } security={ security } />
-										))
-									) : null
-								}
-								</div>
-							</div>
+							{
+								this._hasSecurity() ? (
+									<div className="securities">
+										<h3 className="text-muted">Security</h3>
+										<div>
+											{
+												this.props.details.security ? (
+													this.props.details.security.map(security => (
+														<Security key={ security } security={ security } />
+													))
+												) : null
+											}
+										</div>
+									</div>
+								) : null
+							}
 						</div>
 					) : null
 				}
@@ -100,6 +104,10 @@ export default class MethodDetailsPage extends Component {
 
 	_hasParameters() {
 		return (this.props.details.parameters && this.props.details.parameters.length > 0);
+	}
+
+	_hasSecurity() {
+		return (this.props.details.security && this.props.details.security.length > 0);
 	}
 
 	_getMethodClasses() {
